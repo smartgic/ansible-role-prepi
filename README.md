@@ -4,9 +4,9 @@ This Ansible role will apply some configurations to obtain the best performances
 
 `prepi` stands for "Prepare Pi".
 
-**First, a major, MAJOR caveat**: You are responsible of the choices made with this role, you decide which firmware*[1]*, which EEPROM*[2]* you want to use. The same rule applies to the overclocking*[3]* feature.
+**First, a major, MAJOR caveat**: You are responsible of the choices made with this role, you decide which firmware[1], which EEPROM[2] you want to use. The same rule applies to the overclocking[3] feature.
 
-That being said, this role performs the following tasks _(depending your wish)_:
+That being said, this role performs the following tasks _(depending your wishes)_:
 
 - Update firmware using the `next` branch which provide kernel 5.10 and edge firmware _(customizable)_
 - Update EEPROM using the `beta` version which provide edge features _(customizable)_
@@ -22,14 +22,14 @@ This role has been developed on a Raspberry Pi 4B with [Raspberry Pi OS 64-bit](
 
 Please read the documentation links below before taking any decisions.
 
-_[1]_ https://www.raspberrypi.org/documentation/raspbian/applications/rpi-update.md
-_[2]_ https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md
-_[3]_ https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md
+- _[1]_ https://www.raspberrypi.org/documentation/raspbian/applications/rpi-update.md
+- _[2]_ https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md
+- _[3]_ https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md
 
 ## Requirements
 
-- Raspberry Pi 4B and later
-- Raspberry Pi OS 64-bit _(required for board with more than 4GB of RAM)_
+- Raspberry Pi 4B board and later
+- [Raspberry Pi OS 64-bit](https://downloads.raspberrypi.org/raspios_arm64/images) _(required for board with more than 4GB of RAM)_
 
 ## Role Variables
 
@@ -49,7 +49,7 @@ prepi_hostname: smartgic-pi4b8-13
 prepi_cpu_governor: performance
 
 # Use fast DNS nameservers (CloudFlare and Google)
-# Keep in mind that if you are using a DHCP server these DNS nameservers will be overrided sooner or later
+# Keep in mind that if you are using a DHCP server these changes will be override
 prepi_nameservers:
   - 1.1.1.1
   - 8.8.8.8
