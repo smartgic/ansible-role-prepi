@@ -33,6 +33,7 @@
   template:
     src: etc/resolv.conf.j2
     dest: /etc/resolv.conf
+    mode: 0644
 
 - name: Add {{ prepi_pi_user }} user gpio, video and audio groups
   user:
@@ -49,7 +50,8 @@
   changed_when: no
   register: rootfs_uuid
 
-- set_fact:
+- name: Set partition_uuid fact
+  set_fact:
     partition_uuid: "{{ rootfs_uuid.stdout }}"
 
 - name: Add options to /etc/fstab

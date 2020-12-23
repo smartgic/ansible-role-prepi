@@ -19,5 +19,6 @@
     - {key: "initial_turbo", value: "60"}
   register: overclock
 
-- set_fact:
+- name: Set overclock_changed fact
+  set_fact:
     overclock_changed: "{{ overclock.changed }}"

@@ -16,12 +16,12 @@
     line: 'FIRMWARE_RELEASE_STATUS="{{ prepi_eeprom }}"'
 
 - name: Update EEPROM
-  shell:
-    cmd: rpi-eeprom-update -a
-    executable: /bin/bash
+  command: |
+    rpi-eeprom-update -a
   changed_when: no
   register: eeprom
 
-- set_fact:
+- name: Set eeprom_reboot and firmware_reboot facts
+  set_fact:
     eeprom_reboot: "{{ eeprom.stdout | regex_search('reboot') }}"
     firmware_reboot: "{{ firmware.stdout | regex_search('reboot') }}"
