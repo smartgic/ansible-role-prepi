@@ -1,0 +1,20 @@
+---
+prepi_pi_user: pi
+prepi_hostname: smartgic-pi4b8-13
+prepi_cpu_governor: performance
+prepi_nameservers:
+  - 1.1.1.1
+  - 8.8.8.8
+prepi_firmware_update: yes
+prepi_firmware_branch: next
+prepi_eeprom: beta
+prepi_overclock: yes
+prepi_force_turbo: no
+prepi_cpu_freq: 2000
+prepi_gpu_freq: 650
+prepi_voltage: 6
+prepi_i2c_enable: yes
+prepi_spi_enable: yes
+prepi_uart_enable: no
+prepi_pulseaudio: yes
+prepi_pulseaudio_systemd: no

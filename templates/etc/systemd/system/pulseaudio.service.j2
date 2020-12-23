@@ -1,0 +1,10 @@
+[Unit]
+Documentation=https://www.freedesktop.org/wiki/Software/PulseAudio/
+Description=PulseAudio sound system server
+
+[Service]
+ExecStart=/usr/bin/pulseaudio --daemonize=no --system --realtime --log-target=journal
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

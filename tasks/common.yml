@@ -1,0 +1,86 @@
+---
+- name: Install required packages
+  package:
+    name:
+      - util-linux
+      - rpi-update
+      - rpi-eeprom
+      - vim
+      - i2c-tools
+      - deborphan
+      - git
+      - sudo
+      - coreutils
+      - linux-cpupower
+
+- name: Update Raspberry Pi OS
+  apt:
+    upgrade: dist
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Set hostname
+  hostname:
+    name: "{{ prepi_hostname }}"
+
+- name: Update /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: "^127.0.1.1"
+    line: "127.0.1.1  {{ prepi_hostname }}"
+
+- name: Use faster DNS servers
+  template:
+    src: etc/resolv.conf.j2
+    dest: /etc/resolv.conf
+
+- name: Add {{ prepi_pi_user }} user gpio, video and audio groups
+  user:
+    name: "{{ prepi_pi_user }}"
+    append: yes
+    groups:
+      - gpio
+      - video
+      - audio
+
+- name: Retrieve rootfs partition UUID
+  command: |
+    blkid -s PARTUUID -o value -t LABEL={{ _prepi_root_label }}
+  changed_when: no
+  register: rootfs_uuid
+
+- set_fact:
+    partition_uuid: "{{ rootfs_uuid.stdout }}"
+
+- name: Add options to /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    regexp: "^PARTUUID={{ partition_uuid }}"
+    line: "PARTUUID={{ partition_uuid }} / ext4 defaults,nodiratime,noatime,commit=1800 0 1"
+
+- name: Mount /tmp as tmpfs
+  mount:
+    path: /tmp
+    src: tmpfs
+    fstype: tmpfs
+    opts: "defaults,noatime,nosuid,nodev,mode=1777,size=2G"
+    state: present
+
+- name: Create CPU governor systemd service
+  template:
+    src: etc/systemd/system/cpu-governor.service.j2
+    dest: /etc/systemd/system/cpu-governor.service
+    mode: 0644
+  notify: daemon-reload
+
+- name: Set CPU governor
+  systemd:
+    name: cpu-governor
+    enabled: yes
+    state: started
+
+- import_tasks: pulseaudio.yml
+  when: prepi_pulseaudio is defined and prepi_pulseaudio | bool
+
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers

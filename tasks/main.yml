@@ -1,0 +1,12 @@
+---
+- import_tasks: common.yml
+
+- import_tasks: firmware.yml
+  when: prepi_firmware_update is defined and prepi_firmware_update | bool
+
+- import_tasks: overclock.yml
+  when: prepi_overclock is defined and prepi_overclock | bool
+
+- import_tasks: io.yml
+
+- import_tasks: cleaning.yml

@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+{% for prepi_nameserver in prepi_nameservers %}
+nameserver {{ prepi_nameserver }}
+{% endfor %}

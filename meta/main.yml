@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  role_name: prepi
+  author: Gaëtan Trellu - goldyfruit
+  description: Spply some configurations to obtain the best performances from a Raspberry Pi 4 board and later.
+  company: Smart'Gic
+  issue_tracker_url: https://github.com/smartgic/ansible-role-prepi/issues
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: Raspberry Pi OS
+      versions:
+        - 2020-08-20
+  galaxy_tags:
+    - system
+    - updates
+    - raspberrypi
+    - overclockpi
+    - rpi
+
+dependencies: []

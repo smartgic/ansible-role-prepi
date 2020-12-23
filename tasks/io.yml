@@ -1,0 +1,10 @@
+---
+- name: Manage IO (I2C, SPI, etc...) buses
+  lineinfile:
+    path: "{{ _prepi_config_txt_path }}"
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  loop:
+    - {key: "dtparam=i2c_arm", value: "{{ 'on' if prepi_i2c_enable | bool else 'off' }}"}
+    - {key: "dtparam=spi", value: "{{ 'on' if prepi_spi_enable | bool else 'off' }}"}
+    - {key: "enable_uart", value: "{{ '1' if prepi_uart_enable | bool else '0' }}"}

@@ -1,0 +1,35 @@
+---
+- name: Install pulseaudio sounc server
+  package:
+    name:
+      - pulseaudio
+      - pulseaudio-utils
+
+- name: Add {{ prepi_pi_user }} user pulse-access group
+  user:
+    name: "{{ prepi_pi_user }}"
+    append: yes
+    groups:
+      - pulse-access
+
+- name: Ensure tsched=0 is set for module-udev-detect
+  lineinfile:
+    path: /etc/pulse/default.pa
+    regexp: "^load-module module-udev-detect"
+    line: "load-module module-udev-detect tsched=0"
+  notify: restart-pulseaudio
+
+- name: Create pulseaudio systemd service
+  template:
+    src: etc/systemd/system/pulseaudio.service.j2
+    dest: /etc/systemd/system/pulseaudio.service
+    mode: 0644
+  when: prepi_pulseaudio_systemd is defined and prepi_pulseaudio_systemd | bool
+
+- name: Start pulseaudio service
+  systemd:
+    name: pulseaudio
+    enabled: yes
+    state: started
+  notify: daemon-reload
+  when: prepi_pulseaudio_systemd is defined and prepi_pulseaudio_systemd | bool

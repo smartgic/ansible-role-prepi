@@ -1,0 +1,14 @@
+---
+- name: Remove orphan dependencies, etc...
+  shell:
+    cmd: |
+      apt-get --purge remove $(deborphan) -y
+      sync
+    executable: /bin/bash
+    warn: no
+  changed_when: no
+
+- name: Packages cleaning
+  apt:
+    autoclean: yes
+    autoremove: yes

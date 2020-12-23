@@ -1,0 +1,23 @@
+---
+- name: Backup original /boot/config.txt
+  copy:
+    src: "{{ _prepi_config_txt_path }}"
+    dest: "{{ _prepi_config_txt_path }}.orig"
+    remote_src: yes
+    mode: 0644
+
+- name: Overclock CPU and GPU
+  lineinfile:
+    path: "{{ _prepi_config_txt_path }}"
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  loop:
+    - {key: "arm_freq", value: "{{ prepi_cpu_freq }}"}
+    - {key: "gpu_freq", value: "{{ prepi_gpu_freq }}"}
+    - {key: "over_voltage", value: "{{ prepi_voltage }}"}
+    - {key: "force_turbo", value: "{{ '1' if prepi_force_turbo | bool else '0' }}"}
+    - {key: "initial_turbo", value: "60"}
+  register: overclock
+
+- set_fact:
+    overclock_changed: "{{ overclock.changed }}"

@@ -1,0 +1,27 @@
+---
+- name: Update kernel and firmware
+  environment:
+    BRANCH: "{{ prepi_firmware_branch }}"
+    PRUNE_MODULES: 1
+  shell:
+    cmd: echo y | rpi-update
+    executable: /bin/bash
+  changed_when: no
+  register: firmware
+
+- name: Set EEPROM release
+  lineinfile:
+    path: /etc/default/rpi-eeprom-update
+    regexp: "^FIRMWARE_RELEASE_STATUS="
+    line: 'FIRMWARE_RELEASE_STATUS="{{ prepi_eeprom }}"'
+
+- name: Update EEPROM
+  shell:
+    cmd: rpi-eeprom-update -a
+    executable: /bin/bash
+  changed_when: no
+  register: eeprom
+
+- set_fact:
+    eeprom_reboot: "{{ eeprom.stdout | regex_search('reboot') }}"
+    firmware_reboot: "{{ firmware.stdout | regex_search('reboot') }}"
