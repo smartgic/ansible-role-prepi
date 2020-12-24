@@ -96,10 +96,6 @@ prepi_uart_enable: no
 
 # Install and configure PulseAudio
 prepi_pulseaudio: yes
-
-# Use PulseAudio system wide with systemd
-prepi_pulseaudio_systemd: no
-
 ```
 
 ## Dependencies

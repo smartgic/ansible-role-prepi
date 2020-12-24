@@ -17,4 +17,3 @@ prepi_i2c_enable: yes
 prepi_spi_enable: yes
 prepi_uart_enable: no
 prepi_pulseaudio: yes
-prepi_pulseaudio_systemd: no
