@@ -3,7 +3,6 @@
   shell:
     cmd: |
       apt-get --purge remove $(deborphan) -y
-      sync
     executable: /bin/bash
     warn: no
   changed_when: no
@@ -14,4 +13,7 @@
       apt-get autoremove -y
       apt-get autoclean -y
       apt-get clean
+      sync
     executable: /bin/bash
+    warn: no
+  changed_when: no
