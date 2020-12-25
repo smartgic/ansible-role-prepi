@@ -8,3 +8,7 @@
     scope: user
     daemon-reload: yes
 
+- name: restart-pulseaudio
+  systemd:
+    name: pulseaudio
+    state: restarted

@@ -5,13 +5,27 @@
       - pulseaudio
       - pulseaudio-utils
 
-- name: Add {{ prepi_pi_user }} user pulse-access and pulse groups
-  user:
-    name: "{{ prepi_pi_user }}"
-    append: yes
-    groups:
-      - pulse-access
-      - pulse
+- name: Create PulseAudio systemd unit service and socket
+  copy:
+    src: "config/systemd/user/{{ item }}"
+    dest: "/home/{{ prepi_pi_user }}/.config/systemd/user/{{ item }}"
+    owner: "{{ prepi_pi_user }}"
+    group: "{{ prepi_pi_user }}"
+    mode: 0644
+  loop:
+    - pulseaudio.service
+    - pulseaudio.socket
+  notify: daemon-reload-user
+
+- name: Start PulseAudio systemd service and socket
+  systemd:
+    name: "{{ item }}"
+    enabled: yes
+    scope: user
+    state: started
+  loop:
+    - pulseaudio.service
+    - pulseaudio.socket
 
 - name: Ensure tsched=0 is set for module-udev-detect
   lineinfile:
