@@ -17,6 +17,9 @@
     - pulseaudio.socket
   notify: daemon-reload-user
 
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers
+
 - name: Start PulseAudio systemd service and socket
   systemd:
     name: "{{ item }}"
