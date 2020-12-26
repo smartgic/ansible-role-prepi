@@ -10,6 +10,7 @@
   copy:
     src: "config/pulse/default.pa"
     dest: "/home/{{ prepi_pi_user }}/.config/pulse/default.pa"
+    create: yes
     mode: 0644
 
 - name: Create PulseAudio systemd unit service and socket
@@ -34,8 +35,6 @@
     path: /home/{{ prepi_pi_user }}/.config/pulse/default.pa
     regexp: "^load-module module-udev-detect"
     line: "load-module module-udev-detect tsched=0"
-    create: yes
-    mode: 0644
   register: config
 
 # A handler should be use in this case but for some reasons
