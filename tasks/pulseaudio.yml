@@ -6,6 +6,12 @@
       - pulseaudio-utils
   become: yes
 
+- name: Create PulseAudio default configuration
+  copy:
+    src: "config/pulse/default.pa"
+    dest: "/home/{{ prepi_pi_user }}/.config/pulse/default.pa"
+    mode: 0644
+
 - name: Create PulseAudio systemd unit service and socket
   copy:
     src: "config/systemd/user/{{ item }}"
