@@ -4,35 +4,40 @@
     name:
       - pulseaudio
       - pulseaudio-utils
+  become: yes
 
 - name: Create PulseAudio systemd unit service and socket
   copy:
     src: "config/systemd/user/{{ item }}"
     dest: "/home/{{ prepi_pi_user }}/.config/systemd/user/{{ item }}"
-    owner: "{{ prepi_pi_user }}"
-    group: "{{ prepi_pi_user }}"
     mode: 0644
   loop:
     - pulseaudio.service
     - pulseaudio.socket
-  notify: daemon-reload-user
-
-- name: Force all notified handlers to run at this point
-  meta: flush_handlers
 
 - name: Start PulseAudio systemd service and socket
   systemd:
-    name: "{{ item }}"
+    name: pulseaudio
     enabled: yes
     scope: user
     state: started
-  loop:
-    - pulseaudio.service
-    - pulseaudio.socket
+    daemon-reload: yes
 
 - name: Ensure tsched=0 is set for module-udev-detect
   lineinfile:
-    path: /etc/pulse/default.pa
+    path: /home/{{ prepi_pi_user }}/.config/pulse/default.pa
     regexp: "^load-module module-udev-detect"
     line: "load-module module-udev-detect tsched=0"
-  notify: restart-pulseaudio
+    create: yes
+    mode: 0644
+  register: config
+
+# A handler should be use in this case but for some reasons
+# there is a bug with the systemd module and the scope not
+# keep as user.
+- name: Restart PulseAudio if configuration changed
+  systemd:
+    name: pulseaudio
+    scope: user
+    state: restarted
+  when: config.changed

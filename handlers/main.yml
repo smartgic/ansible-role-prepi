@@ -2,13 +2,3 @@
 - name: daemon-reload
   systemd:
     daemon-reload: yes
-
-- name: daemon-reload-user
-  systemd:
-    scope: user
-    daemon-reload: yes
-
-- name: restart-pulseaudio
-  systemd:
-    name: pulseaudio
-    state: restarted

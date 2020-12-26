@@ -83,6 +83,7 @@
 
 - import_tasks: pulseaudio.yml
   when: prepi_pulseaudio is defined and prepi_pulseaudio | bool
+  become: no
 
 - name: Force all notified handlers to run at this point
   meta: flush_handlers
