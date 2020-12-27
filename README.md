@@ -4,7 +4,7 @@ This Ansible role will apply some configurations to obtain the best performances
 
 `prepi` stands for "Prepare Pi".
 
-**First, a major, MAJOR caveat**: You are responsible of the choices made with this role, you decide which firmware[1], which EEPROM[2] you want to use. The same rule applies to the overclocking[3] feature.
+**First, a major, MAJOR caveat**: You are responsible of the choices made with this role, you decide which firmware[1], which EEPROM[2] you want to use. The same rule applies to the overclocking[3] feature. **Remember that overclocking requires a proper active cooling system.**
 
 That being said, this role performs the following tasks _(depending your wishes)_:
 
