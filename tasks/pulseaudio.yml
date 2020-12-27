@@ -42,7 +42,7 @@
     path: /home/{{ prepi_pi_user }}/.config/pulse/default.pa
     regexp: "^load-module module-udev-detect"
     line: "load-module module-udev-detect tsched=0"
-  register: config
+  register: config_tsched
 
 # A handler should be use in this case but for some reasons
 # there is a bug with the systemd module and the scope not
@@ -52,4 +52,4 @@
     name: pulseaudio
     scope: user
     state: restarted
-  when: config.changed
+  when: config_default.changed or config_tsched.changed
