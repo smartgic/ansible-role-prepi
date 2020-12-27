@@ -1,3 +1,6 @@
 ---
 _prepi_config_txt_path: /boot/config.txt
 _prepi_root_label: rootfs
+_prepi_backports_url: http://deb.debian.org/debian
+_prepi_backports_release: "{{ ansible_distribution_release }}-backports"
+_prepi_backports_pin_priotiry: 700

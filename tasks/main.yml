@@ -1,4 +1,7 @@
 ---
+- import_tasks: backports.yml
+  when: prepi_backports_enable is defined and prepi_backports_enable | bool
+
 - import_tasks: common.yml
 
 - import_tasks: firmware.yml

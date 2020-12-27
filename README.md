@@ -9,6 +9,7 @@ This Ansible role will apply some configurations to obtain the best performances
 That being said, this role performs the following tasks _(depending your wishes)_:
 
 - Update Raspberry Pi OS to the latest version
+- Add Debian backports repository _(customizable)_
 - Update firmware using the `next` branch which provide kernel 5.10 and edge firmware _(customizable)_
 - Update EEPROM using the `beta` version which provide edge features _(customizable)_
 - Setup `initial_turbo` to speedup the boot process
@@ -97,6 +98,9 @@ prepi_uart_enable: no
 
 # Install and configure PulseAudio
 prepi_pulseaudio: yes
+
+# Enable Debian backports repository to get the latest packages
+prepi_backports_enable: yes
 ```
 
 ## Dependencies
