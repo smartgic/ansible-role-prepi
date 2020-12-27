@@ -1,6 +1,6 @@
 # Ansible Role: Prepi
 
-This Ansible role will apply some configurations to obtain the best performances from a Raspberry Pi 4 board and later.
+This Ansible role will apply some configurations to obtain the best performances from a Raspberry Pi 4B board and later.
 
 `prepi` stands for "Prepare Pi".
 
@@ -8,6 +8,7 @@ This Ansible role will apply some configurations to obtain the best performances
 
 That being said, this role performs the following tasks _(depending your wishes)_:
 
+- Update Raspberry Pi OS to the latest version
 - Update firmware using the `next` branch which provide kernel 5.10 and edge firmware _(customizable)_
 - Update EEPROM using the `beta` version which provide edge features _(customizable)_
 - Setup `initial_turbo` to speedup the boot process
@@ -16,7 +17,7 @@ That being said, this role performs the following tasks _(depending your wishes)
 - Optimize `/` partition mount options to improve SDcard read/write
 - Manage I2C, SPI & UART interfaces _(customizable)_
 - Set CPU governor to `performance` to avoid context switching between the `idle*` kernel functions _(customizable)_
-- Install and configure PulseAudio _(customizable)_
+- Install and configure PulseAudio (non-system wide) _(customizable)_
 
 This role has been developed on a Raspberry Pi 4B with [Raspberry Pi OS 64-bit](https://downloads.raspberrypi.org/raspios_arm64/images).
 
