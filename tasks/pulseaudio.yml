@@ -14,9 +14,11 @@
 
 - name: Create PulseAudio default configuration
   copy:
-    src: "config/pulse/default.pa"
+    src: "/etc/pulse/default.pa"
     dest: "/home/{{ prepi_pi_user }}/.config/pulse/default.pa"
+    remote_src: yes
     mode: 0644
+  register: config_default
 
 - name: Create PulseAudio systemd unit service and socket
   copy:
