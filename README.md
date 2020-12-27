@@ -19,6 +19,7 @@ That being said, this role performs the following tasks _(depending your wishes)
 - Manage I2C, SPI & UART interfaces _(customizable)_
 - Set CPU governor to `performance` to avoid context switching between the `idle*` kernel functions _(customizable)_
 - Install and configure PulseAudio (non-system wide) _(customizable)_
+- Reboot the Raspberry Pi when new firmware or EEPROM are installed _(customizable)_
 
 This role has been developed on a Raspberry Pi 4B with [Raspberry Pi OS 64-bit](https://downloads.raspberrypi.org/raspios_arm64/images).
 
@@ -101,6 +102,9 @@ prepi_pulseaudio: yes
 
 # Enable Debian backports repository to get the latest packages
 prepi_backports_enable: yes
+
+# Reboot the Raspberry Pi when new firmware or EEPROM are installed
+prepi_reboot: yes
 ```
 
 ## Dependencies

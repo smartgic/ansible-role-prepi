@@ -1,3 +1,4 @@
+---
 - name: Add backports preferences
   template:
     src: etc/apt/preferences.d/backports.j2

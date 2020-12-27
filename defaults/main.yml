@@ -18,3 +18,4 @@ prepi_spi_enable: yes
 prepi_uart_enable: no
 prepi_pulseaudio: yes
 prepi_backports_enable: yes
+prepi_reboot: yes
