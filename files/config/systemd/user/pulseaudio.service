@@ -4,7 +4,7 @@ Requires=pulseaudio.socket
 
 [Service]
 Type=notify
-ExecStart=/usr/bin/pulseaudio --verbose --daemonize=no
+ExecStart=/usr/bin/pulseaudio --daemonize=no
 Restart=on-failure
 
 [Install]
