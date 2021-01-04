@@ -1,3 +1,5 @@
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-smartgic.prepi-green.svg?style=flat)](https://galaxy.ansible.com/smartgic/prepi)
+
 # Ansible Role: Prepi
 
 This Ansible role will apply some configurations to obtain the best performances from a Raspberry Pi 4B board and later.
