@@ -12,4 +12,7 @@
 
 - import_tasks: io.yml
 
+- import_tasks: reboot.yml
+  when: prepi_reboot | bool
+
 - import_tasks: cleaning.yml

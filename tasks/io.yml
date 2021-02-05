@@ -8,3 +8,8 @@
     - {key: "dtparam=i2c_arm", value: "{{ 'on' if prepi_i2c_enable | bool else 'off' }}"}
     - {key: "dtparam=spi", value: "{{ 'on' if prepi_spi_enable | bool else 'off' }}"}
     - {key: "enable_uart", value: "{{ '1' if prepi_uart_enable | bool else '0' }}"}
+  register: io
+
+- name: Set io_changed fact
+  set_fact:
+    io_changed: "{{ io.changed }}"

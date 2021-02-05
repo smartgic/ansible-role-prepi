@@ -1,0 +1,10 @@
+---
+- name: Reboot the Raspberry Pi and wait for it to restart
+  reboot:
+    msg: "Reboot initiated by Ansible"
+    connect_timeout: 5
+    reboot_timeout: 120
+    post_reboot_delay: 5
+    test_command: whoami
+  when:
+    - eeprom_reboot | length > 0 or firmware_reboot | length > 0 or overclock_changed | bool or io_changed | bool
