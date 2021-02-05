@@ -6,11 +6,14 @@
       - pulseaudio-utils
   become: yes
 
-- name: Create .config/pulse/ directory
+- name: Create PulseAudio directories
   file:
-    path: "/home/{{ prepi_pi_user }}/.config/pulse/"
+    path: "{{ item }}"
     state: directory
     mode: 0755
+  loop:
+    - "/home/{{ prepi_pi_user }}/.config/pulse"
+    - "/home/{{ prepi_pi_user }}/.config/systemd/user"
 
 - name: Create PulseAudio default configuration
   copy:
