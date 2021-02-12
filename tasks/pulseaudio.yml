@@ -23,6 +23,13 @@
     mode: 0644
   register: config_default
 
+- name: Add configuration options to PulseAudio daemon
+- lineinfile:
+    path: "/home/{{ prepi_pi_user }}/.config/pulse/daemon.conf"
+    line: "{{ item }}"
+  loop:
+    - "enable-shm = no"
+
 - name: Create PulseAudio systemd unit service and socket
   copy:
     src: "config/systemd/user/{{ item }}"
