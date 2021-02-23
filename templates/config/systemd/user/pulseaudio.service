@@ -4,7 +4,11 @@ Requires=pulseaudio.socket
 
 [Service]
 Type=notify
+{% if prepi_pulseaudio_daemon is defined and prepi_pulseaudio_daemon | bool %}
+ExecStart=/usr/bin/pulseaudio
+{% else %}
 ExecStart=/usr/bin/pulseaudio --daemonize=no
+{% endif %}
 Restart=on-failure
 
 [Install]

@@ -103,6 +103,9 @@ prepi_uart_enable: no
 # Install and configure PulseAudio
 prepi_pulseaudio: yes
 
+# PulseAudio persistent when user disconnect and start at boot time.
+prepi_pulseaudio_daemon: yes
+
 # Enable Debian backports repository to get the latest packages
 prepi_backports_enable: yes
 

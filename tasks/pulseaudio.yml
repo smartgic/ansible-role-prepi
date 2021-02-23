@@ -29,15 +29,19 @@
     line: "{{ item }}"
   loop:
     - "enable-shm = no"
+    - "exit-idle-time = -1"
 
-- name: Create PulseAudio systemd unit service and socket
+- name: Create PulseAudio systemd unit socket
   copy:
-    src: "config/systemd/user/{{ item }}"
-    dest: "/home/{{ prepi_pi_user }}/.config/systemd/user/{{ item }}"
+    src: "config/systemd/user/pulseaudio.socket"
+    dest: "/home/{{ prepi_pi_user }}/.config/systemd/user/pulseaudio.socket"
     mode: 0644
-  loop:
-    - pulseaudio.service
-    - pulseaudio.socket
+
+- name: Create PulseAudio systemd unit socket
+  template:
+    src: "config/systemd/user/pulseaudio.service"
+    dest: "/home/{{ prepi_pi_user }}/.config/systemd/user/pulseaudio.service"
+    mode: 0644
 
 - name: Start PulseAudio systemd service and socket
   systemd:
@@ -46,6 +50,13 @@
     scope: user
     state: started
     daemon-reload: yes
+
+- name: Start systemd --user units during the boot process
+  command:
+    loginctl enable-linger {{ prepi_pi_user }}
+  when: prepi_pulseaudio_daemon is defined and prepi_pulseaudio_daemon | bool
+  changed_when: no
+  become: yes
 
 - name: Ensure tsched=0 is set for module-udev-detect
   lineinfile:
