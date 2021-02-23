@@ -24,7 +24,7 @@
   register: config_default
 
 - name: Add configuration options to PulseAudio daemon
-- lineinfile:
+  lineinfile:
     path: "/home/{{ prepi_pi_user }}/.config/pulse/daemon.conf"
     line: "{{ item }}"
   loop:
