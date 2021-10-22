@@ -15,6 +15,13 @@
     - { directory: "/home/{{ prepi_pi_user }}/.config/pulse", mode: "0700" }
     - { directory: "/home/{{ prepi_pi_user }}/.config/systemd/user", mode: "0755" }
 
+# This condition exists because for some reason the idempotency doesn't work
+# for the copy with remote_src (see next task).
+- name: Check that /home/{{ prepi_pi_user }}/.config/pulse/default.pa exists
+  stat:
+    path: "/home/{{ prepi_pi_user }}/.config/pulse/default.pa"
+  register: default_pa_stat
+
 - name: Create PulseAudio default configuration
   copy:
     src: "/etc/pulse/default.pa"
@@ -22,6 +29,7 @@
     remote_src: yes
     mode: 0644
   register: config_default
+  when: not default_pa_stat.stat.exists
 
 - name: Add configuration options to PulseAudio daemon
   lineinfile:
