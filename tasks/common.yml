@@ -1,6 +1,6 @@
 ---
 - name: Install required packages
-  package:
+  apt:
     name:
       - util-linux
       - rpi-update
@@ -12,6 +12,8 @@
       - sudo
       - coreutils
       - linux-cpupower
+    update_cache: yes
+    cache_valid_time: 3600
 
 - name: Update Raspberry Pi OS
   apt:
