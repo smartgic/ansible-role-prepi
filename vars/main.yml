@@ -4,3 +4,4 @@ _prepi_root_label: rootfs
 _prepi_backports_url: http://deb.debian.org/debian
 _prepi_backports_release: "{{ ansible_distribution_release }}-backports"
 _prepi_backports_pin_priority: 700
+_prepi_xdg_piwiz_path: /etc/xdg/autostart/piwiz.desktop
