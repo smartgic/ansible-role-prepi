@@ -8,12 +8,12 @@
 
 - name: Create PulseAudio directories
   file:
-    path: "{{ item }}"
+    path: "{{ item.directory }}"
     state: directory
-    mode: 0755
+    mode: "{{ item.mode }}"
   loop:
-    - "/home/{{ prepi_pi_user }}/.config/pulse"
-    - "/home/{{ prepi_pi_user }}/.config/systemd/user"
+    - { directory: "/home/{{ prepi_pi_user }}/.config/pulse", mode: "0700" }
+    - { directory: "/home/{{ prepi_pi_user }}/.config/systemd/user", mode: "0755" }
 
 - name: Create PulseAudio default configuration
   copy:
