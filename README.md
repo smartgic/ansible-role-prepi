@@ -1,11 +1,11 @@
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-smartgic.prepi-green.svg?style=flat)](https://galaxy.ansible.com/smartgic/prepi)
-[![Discord](https://img.shields.io/discord/809074036733902888)](https://discord.gg/Vu7Wmd9j) 
+[![Discord](https://img.shields.io/discord/809074036733902888)](https://discord.gg/Vu7Wmd9j)
 
 # Ansible Role: Prepi
 
 This Ansible role will apply some configurations to obtain the best performances from a Raspberry Pi 4B board and later.
 
-`prepi` stands for "Prepare Pi".
+`prepi` stands for "Prepare Raspberry Pi".
 
 **First, a major, MAJOR caveat**: You are responsible of the choices made with this role, you decide which firmware[1], which EEPROM[2] you want to use. The same rule applies to the overclocking[3] feature. **Remember that overclocking requires a proper active cooling system.**
 
@@ -17,7 +17,7 @@ That being said, this role performs the following tasks _(depending your wishes)
 - Update EEPROM using the `beta` version which provide edge features _(customizable)_
 - Setup `initial_turbo` to speedup the boot process
 - Overclock the Raspberry Pi to 2Ghz _(customizable)_
-- Mount `/tmp` on a RAMDisk for Mycroft TTS cache files
+- Mount `/tmp` on a RAMDisk
 - Optimize `/` partition mount options to improve SDcard read/write
 - Manage I2C, SPI & UART interfaces _(customizable)_
 - Set CPU governor to `performance` to avoid context switching between the `idle*` kernel functions _(customizable)_
@@ -28,9 +28,9 @@ This role has been developed on a Raspberry Pi 4B with [Raspberry Pi OS 64-bit](
 
 Please read the documentation links below before taking any decisions.
 
-- _[1]_ https://www.raspberrypi.org/documentation/raspbian/applications/rpi-update.md
-- _[2]_ https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md
-- _[3]_ https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md
+- _[1]_ https://www.raspberrypi.com/documentation/computers/os.html#rpi-update
+- _[2]_ https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-4-boot-eeprom
+- _[3]_ https://www.raspberrypi.com/documentation/computers/config_txt.html#overclocking-options
 
 ## Requirements
 
@@ -41,7 +41,7 @@ Please read the documentation links below before taking any decisions.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-```
+```yaml
 ---
 # System user to add to system group such as gpio, audio, etc...
 prepi_pi_user: pi
@@ -124,14 +124,14 @@ Same as for the requirements section.
 
 Inventory file with `rpi` group which has one host named `rpi4b01` with the IP address `192.168.1.97`.
 
-```
+```ini
 [rpi]
 rpi4b01 ansible_host=192.168.1.97 ansible_user=pi
 ```
 
 Basic playbook running on `rpi` group using the `pi` user to connect via SSH _(based on the inventory)_ with some custom variables.
 
-```
+```yaml
 ---
 - hosts: rpi
   gather_facts: no
@@ -150,6 +150,7 @@ Basic playbook running on `rpi` group using the `pi` user to connect via SSH _(b
     prepi_hostname: smartgic-pi4b8-13
     prepi_cpu_freq: 2000
     prepi_cpu_governor: performance
+    prepi_force_turbo: yes
 
   tasks:
     - import_role:
@@ -165,4 +166,4 @@ MIT
 
 ## Author Information
 
-I'm [Gaëtan Trellu (goldyfruit)](https://smartgic.io/), let's discuss :) - 2020
+I'm [Gaëtan Trellu (goldyfruit)](https://smartgic.io/), let's discuss :) - 2021
