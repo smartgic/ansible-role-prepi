@@ -27,7 +27,7 @@
     src: "/etc/pulse/default.pa"
     dest: "/home/{{ prepi_pi_user }}/.config/pulse/default.pa"
     remote_src: yes
-    mode: 0644
+    mode: preserve
   register: config_default
   when: not default_pa_stat.stat.exists
 
