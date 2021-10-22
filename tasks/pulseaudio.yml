@@ -35,6 +35,7 @@
   lineinfile:
     path: "/home/{{ prepi_pi_user }}/.config/pulse/daemon.conf"
     line: "{{ item }}"
+    create: yes
   loop:
     - "enable-shm = no"
     - "exit-idle-time = -1"
