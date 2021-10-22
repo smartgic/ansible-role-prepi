@@ -17,3 +17,9 @@
     executable: /bin/bash
     warn: no
   changed_when: no
+
+- name: Disable onboarding screen (Piwiz)
+  file:
+    path: "{{ _prepi_xdg_piwiz_path }}"
+    state: absent
+  when: prepr_disable_onboarding_screen | bool

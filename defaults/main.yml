@@ -20,3 +20,4 @@ prepi_pulseaudio: yes
 prepi_pulseaudio_daemon: no
 prepi_backports_enable: yes
 prepi_reboot: yes
+prepr_disable_onboarding_screen: yes

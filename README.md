@@ -111,6 +111,9 @@ prepi_backports_enable: yes
 
 # Reboot the Raspberry Pi when new firmware or EEPROM are installed
 prepi_reboot: yes
+
+# Disable the onboarding screen configuration (when using the Raspberry Pi OS desktop version)
+prepi_disable_onboarding_screen: yes
 ```
 
 ## Dependencies
