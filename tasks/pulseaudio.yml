@@ -75,7 +75,7 @@
   register: config_tsched
 
 # A handler should be use in this case but for some reasons
-# there is a bug with the systemd module and the scope not
+# there is a bug with the systemd module and the scope is not
 # keep as user.
 - name: Restart PulseAudio if configuration changed
   systemd:
