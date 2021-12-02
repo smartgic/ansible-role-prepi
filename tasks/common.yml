@@ -37,7 +37,7 @@
     dest: /etc/resolv.conf
     mode: 0644
 
-- name: Add {{ prepi_pi_user }} user gpio, video and audio groups
+- name: Add {{ prepi_pi_user }} user gpio, video, audio and render groups
   user:
     name: "{{ prepi_pi_user }}"
     append: yes
@@ -45,6 +45,7 @@
       - gpio
       - video
       - audio
+      - render
 
 - name: Retrieve rootfs partition UUID
   command: |
