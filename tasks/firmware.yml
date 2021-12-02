@@ -3,6 +3,7 @@
   environment:
     BRANCH: "{{ prepi_firmware_branch }}"
     PRUNE_MODULES: 1
+    SKIP_BACKUP: 1
   shell:
     cmd: echo y | rpi-update
     executable: /bin/bash
